@@ -14,9 +14,14 @@ fn main() {
     println!("text:\n{content}");
 }
 
-fn parse_config(args : &[String]) -> (&str,&str) {
-    let query = &args[1];
-    let filepath = &args[2];
+struct Config {
+    query: String,
+    file_path: String
+}
 
-    (query,filepath)
+fn parse_config(args : &[String]) -> Config {
+    let query = args[1].clone();
+    let filepath = args[2].clone();
+
+    Config { query, file_path}
 }
