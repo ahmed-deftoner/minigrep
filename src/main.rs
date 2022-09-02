@@ -1,10 +1,14 @@
 use std::env;
 use std::fs;
+use std::process;
 
 fn main() {
     let args : Vec<String> = env::args().collect();
 
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("error parsing file : {err}");
+        process::exit(1);
+    });
     println!("searching for {}",config.query);
     println!("in file {}",config.file_path);
      
