@@ -4,11 +4,11 @@ use std::fs;
 fn main() {
     let args : Vec<String> = env::args().collect();
 
-    let (query,filepath) = parse_config(&args);
-    println!("searching for {}",query);
-    println!("in file {}",filepath);
+    let config = Config::new(&args);
+    println!("searching for {}",config.query);
+    println!("in file {}",config.file_path);
      
-    let content = fs::read_to_string(filepath)
+    let content = fs::read_to_string(config.file_path)
     .expect("should have read string");
 
     println!("text:\n{content}");
@@ -19,9 +19,11 @@ struct Config {
     file_path: String
 }
 
-fn parse_config(args : &[String]) -> Config {
-    let query = args[1].clone();
-    let filepath = args[2].clone();
-
-    Config { query, file_path}
+impl Config {
+    fn new(args : &[String]) -> Config {
+        let query = args[1].clone();
+        let file_path = args[2].clone();
+    
+        Config { query, file_path }
+    }
 }
