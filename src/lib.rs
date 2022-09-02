@@ -3,7 +3,9 @@ use std::fs;
 
 pub fn run(config : Config) -> Result<(), Box<dyn Error>>{
     let content = fs::read_to_string(config.file_path)?;
-
+    for line in search(&config.query, &content){
+        println!("{line}");
+    }
     Ok(())
 }
 
